@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine, Peony! ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background: linear-gradient(to bottom, #ffffff 0%, #ffebee 50%, #fce4ec 100%);
+            background-attachment: fixed;
+            font-family: 'Quicksand', sans-serif;
+            color: #5d4037;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .name {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(3.5rem, 15vw, 6rem);
+            background: linear-gradient(to bottom, #ffafc2 20%, #ff85a1 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glowPulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 20px rgba(255, 133, 161, 0.5); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 25px;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 350px;
+            
+            /* Tambahkan shadow di bawah ini */
+            box-shadow: 0 15px 35px rgba(255, 133, 161, 0.3), 
+                        0 5px 15px rgba(0, 0, 0, 0.05);
+            
+            /* Sedikit animasi agar shadow terasa hidup */
+            transition: transform 0.3s ease;
+        }
+
+        #timer {
+            font-size: clamp(1.2rem, 6vw, 2rem);
+            font-weight: 700;
+            color: #ff85a1;
+        }
+
+        /* Styling Secret Message yang Lebih Clean & Modern */
+        .secret-message {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            /* Transisi linear yang halus, tidak memantul/alay */
+            transition: all 0.5s ease-in-out; 
+            
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            
+            border-radius: 12px; /* Corner lebih tegas, tidak terlalu bulat */
+            
+            width: 85%;
+            max-width: 380px;
+            margin: 15px auto 0;
+            
+            box-shadow: 0 15px 35px rgba(255, 133, 161, 0.3), 
+                        0 5px 15px rgba(0, 0, 0, 0.05);            color: #5d4037;
+            text-align: left; /* Teks rata kiri agar lebih rapi dibaca */
+        }
+
+        .secret-message.show {
+            max-height: 500px; /* Cukup tinggi untuk teks panjang */
+            opacity: 1;
+            padding: 20px;
+        }
+
+        /* Sedikit style untuk teks di dalamnya */
+        .secret-message p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            height: 350px;
+            margin: 20px auto;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 8px 8px 20px 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            width: 130px;
+            position: absolute;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            left: 50%; top: 50%;
+        }
+
+        .polaroid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        .polaroid span { font-family: 'Dancing Script', cursive; color: #ff85a1; font-size: 0.9rem; margin-top: 8px; display: block; }
+
+        .pos-tl { transform: translate(-105%, -110%) rotate(-5deg); }
+        .pos-tr { transform: translate(5%, -110%) rotate(5deg); }
+        .pos-bl { transform: translate(-105%, 10%) rotate(-3deg); }
+        .pos-br { transform: translate(5%, 10%) rotate(3deg); }
+        .pos-mid { transform: translate(-50%, -50%) scale(1.2) rotate(0deg); z-index: 10; border: 2px solid #ffdae0; }
+
+        .wish-btn {
+            background: #ff85a1;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+        .wish-btn:active { transform: scale(0.9); }
+
+        .music-player { position: fixed; top: 20px; right: 20px; z-index: 1000; }
+        .music-btn { background: white; border: 1.5px solid #ff85a1; color: #ff85a1; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="music-player">
+        <button class="music-btn" onclick="toggleMusic()" id="musicToggle">▶</button>
+        <audio id="myAudio" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg"></audio>
+    </div>
+
+    <section>
+        <h1 class="name">Peony</h1>
+        <p style="color: #a1887f; font-weight: 600; letter-spacing: 4px; font-size: 0.8rem; margin-top: 10px;">MY ETERNAL VALENTINE</p>
+    </section>
+
+    <section>
+        <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ff85a1; margin-bottom: 20px;">A Lifetime of Us</h2>
+        
+        <div class="glass-card">
+            <span id="timer">00d 00h 00m 00s</span>
+        </div>
+
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #ff85a1; font-weight: 600; letter-spacing: 1px; font-style: italic;">
+            "Every second with you is a favorite memory in the making..."
+        </p>
+    </section>
+
+    <section>
+        <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ff85a1; margin-bottom: 20px;">Grace & Soul</h2>
+        <div class="gallery-container">
+            <div class="polaroid pos-tl" onclick="swap(this, parentNode)"><img src="URL_FOTO_1" alt="1"><span>Soft</span></div>
+            <div class="polaroid pos-tr" onclick="swap(this, parentNode)"><img src="URL_FOTO_2" alt="2"><span>Kind</span></div>
+            <div class="polaroid pos-mid" onclick="swap(this, parentNode)"><img src="URL_FOTO_3" alt="3"><span>My Muse</span></div>
+            <div class="polaroid pos-bl" onclick="swap(this, parentNode)"><img src="URL_FOTO_4" alt="4"><span>Warm</span></div>
+            <div class="polaroid pos-br" onclick="swap(this, parentNode)"><img src="URL_FOTO_5" alt="5"><span>Pure</span></div>
+        </div>
+    <button class="wish-btn" onclick="toggleMessage('msg2')">A Note on Your Beauty 💌</button>
+    <div id="msg2" class="secret-message">
+        <p>They say beauty is in the eye of the beholder, but with you, beauty is simply a fact. It’s in the way you smile, the kindness in your eyes, and the warmth of your soul. You are my masterpiece, Peony. ✨</p>
+    </div>
+    </section>
+
+    <section>
+        <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ff85a1; margin-bottom: 20px;">Our Memories</h2>
+        <div class="gallery-container">
+            <div class="polaroid pos-tl" onclick="swap(this, parentNode)"><img src="URL_FOTO_6" alt="1"><span>Laugh</span></div>
+            <div class="polaroid pos-tr" onclick="swap(this, parentNode)"><img src="URL_FOTO_7" alt="2"><span>Date</span></div>
+            <div class="polaroid pos-mid" onclick="swap(this, parentNode)"><img src="URL_FOTO_8" alt="3"><span>Us ❤️</span></div>
+            <div class="polaroid pos-bl" onclick="swap(this, parentNode)"><img src="URL_FOTO_9" alt="4"><span>Home</span></div>
+            <div class="polaroid pos-br" onclick="swap(this, parentNode)"><img src="URL_FOTO_10" alt="5"><span>Future</span></div>
+        </div>
+         <button class="wish-btn" onclick="toggleMessage('msg3')">Our Secret Promise 🔐</button>
+          <div id="msg3" class="secret-message">
+            <p>Thank you for sticking by me through every season. No matter where life takes us, my hand will always be holding yours. Here’s to a thousand more sunsets and a million more laughs together. 🥂</p>
+        </div>
+    </section>
+
+    <section>
+        <h3 style="font-size: 0.9rem; letter-spacing: 4px; color: #ffb1c1; font-weight: 600; margin-bottom: 10px;">FINAL SURPRISE</h3>
+        <button class="wish-btn" onclick="toggleMessage('msgFinal', true)">Click to Read My Heart</button>
+        <div id="msgFinal" class="secret-message" style="max-width: 400px;">
+            <p id="typewriterText" style="font-size: 0.95rem; line-height: 1.7; white-space: pre-line; text-align: left;"></p>
+        </div>
+    </section>
+
+    <script>
+        const audio = document.getElementById("myAudio");
+        const musicToggle = document.getElementById("musicToggle");
+        
+        function toggleMusic() {
+            if (audio.paused) { audio.play(); musicToggle.innerHTML = "⏸"; } 
+            else { audio.pause(); musicToggle.innerHTML = "▶"; }
+        }
+
+        // Fungsi Baru: Munculkan pesan di bawah button
+        function toggleMessage(id, isTypewriter = false) {
+            const msg = document.getElementById(id);
+            const allMessages = document.querySelectorAll('.secret-message');
+            
+            // Tutup pesan lain yang mungkin terbuka
+            allMessages.forEach(m => { if(m.id !== id) m.classList.remove('show'); });
+
+            msg.classList.toggle('show');
+            
+            if (msg.classList.contains('show')) {
+                valentineBurst();
+                if (isTypewriter) { startTypewriter(); }
+                setTimeout(() => { msg.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
+            }
+        }
+
+        function startTypewriter() {
+            const text = "To my dearest Peony,\n\nWords will always fall short of describing how much you mean to me. You are my home, my heart, and my greatest blessing. Thank you for simply being you. May your day be as radiant and lovely as the love you’ve given me.\n\nI love you, beyond words and across time. ❤️";
+            const target = document.getElementById('typewriterText');
+            if (target.innerHTML !== "") return; 
+            
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    target.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
+
+        // Anniversary Date
+        const startDate = new Date(2025, 0, 1).getTime(); 
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = now - startDate;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById("timer").innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+        }, 1000);
+
+        function swap(clicked, container) {
+            if (clicked.classList.contains('pos-mid')) return;
+            const mid = container.querySelector('.pos-mid');
+            const clickedPos = Array.from(clicked.classList).find(c => c.startsWith('pos-'));
+            clicked.classList.replace(clickedPos, 'pos-mid');
+            mid.classList.replace('pos-mid', clickedPos);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.color = '#ff85a1';
+            heart.innerHTML = '❤';
+            heart.style.zIndex = '1500';
+            heart.style.pointerEvents = 'none';
+            heart.style.transition = `transform ${Math.random() * 3 + 2}s linear, opacity 2s`;
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.style.transform = `translateY(-110vh) rotate(${Math.random() * 360}deg)`;
+                heart.style.opacity = '0';
+            }, 100);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        function valentineBurst() {
+            for(let i=0; i<15; i++) { setTimeout(createHeart, i * 100); }
+        }
+        setInterval(createHeart, 800);
+    </script>
+</body>
+</html>
